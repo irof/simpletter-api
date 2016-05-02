@@ -1,12 +1,10 @@
 package sample;
 
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.stream.Collectors;
 
 /**
  * ツイートを取得したり投稿するAPIを提供するコントローラーです。
@@ -45,5 +43,10 @@ public class TweetController {
             @RequestParam String text) {
         Tweet tweet = service.tweet(userId, text);
         return TweetView.fromTweet(tweet);
+    }
+
+    @ExceptionHandler(AccountNotFoundException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public void handleAccountNotFound(AccountNotFoundException e) {
     }
 }

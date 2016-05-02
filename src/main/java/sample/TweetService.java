@@ -46,6 +46,9 @@ public class TweetService {
     @Transactional
     public Tweet tweet(String userId, String text) {
         Account user = accountRepository.find(userId);
+        if (user == null) {
+            throw new AccountNotFoundException();
+        }
         Tweet tweet = new Tweet();
         tweet.id = UUID.randomUUID();
         tweet.text = text;
