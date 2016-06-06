@@ -50,13 +50,9 @@ public class Application {
      */
     @Bean
     ApplicationListener<ContextRefreshedEvent> listener() {
-        return new ApplicationListener<ContextRefreshedEvent>() {
-
-            @Override
-            public void onApplicationEvent(ContextRefreshedEvent event) {
-                accountService.signUp("hogekun");
-                tweetService.tweet("hogekun", "こんにちは！");
-            }
+        return event -> {
+            accountService.signUp("hogekun");
+            tweetService.tweet("hogekun", "こんにちは！");
         };
     }
 }
