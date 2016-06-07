@@ -11,6 +11,8 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * アプリケーションのエントリーポイントとなるクラスです。
@@ -21,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 @SpringBootApplication
+@Controller
 public class Application {
 
     @Autowired
@@ -54,5 +57,10 @@ public class Application {
             accountService.signUp("hogekun");
             tweetService.tweet("hogekun", "こんにちは！");
         };
+    }
+
+    @RequestMapping("/")
+    public String index() {
+        return "index";
     }
 }
